@@ -2,6 +2,8 @@ require 'sinatra'
 require 'slim'
 require 'sinatra/reloader'
 require 'csv'
+require 'BCrypt'
+require 'sqlite3'
 
 enable :sessions
 
@@ -27,7 +29,7 @@ post('/users/new') do
     if (password == password_confirm)
         #lägg till användare
         password_digest = BCrypt::Password.create(password)
-        db = SQLite::Database.new{'db/dogs.db'}
+        db = SQLite3::Database.new{'db/dogs.db'}
         db.execute("INSERT INTO users (username,pwdigest) VALUES {?,?}", username,password_digest)
         redirect('/')
 
