@@ -4,3 +4,10 @@
     box-sizing: border-box;
 }
 
+background {
+    background: rgb(144, 197, 255);
+}
+
+a {
+    font-style: bold;
+}
