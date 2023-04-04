@@ -8,7 +8,8 @@
 #grid_wrapper {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 300px 200px minmax(500px, auto);
+    height: 100vh;
+    grid-template-rows: 70px 50px minmax(500px, auto);
     grid-template-areas: 
     "he" 
     "na" 
@@ -25,14 +26,9 @@ header {
 
 nav {
     grid-area: na;
-    background-color: rgb(97, 236, 199);
+    background-color: rgb(31, 209, 162);
     display: flex;
     justify-content: space-evenly;
-}
-
-hr {
-    height: 20px;
-    background-color: rgb(145, 220, 60);
 }
 
 section {
