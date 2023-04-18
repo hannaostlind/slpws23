@@ -10,7 +10,11 @@ enable :sessions
 output = []
 
 get('/') do
-    slim(:start)
+    slim(:register)
+end
+
+get('/login') do
+    slim(:login)
 end
 
 get('/submit') do
@@ -29,12 +33,29 @@ post('/users/new') do
     if (password == password_confirm)
         #lägg till användare
         password_digest = BCrypt::Password.create(password)
-        db = SQLite3::Database.new('db/Dogs.db')
+        db = SQLite3::Database.new('db/hundar.db')
         db.execute("INSERT INTO users (username,pwdigest) VALUES (?,?)", username,password_digest)
-        redirect('/')
+        redirect('/login')
 
     else
         #felhantering
         "Lösenorden matchade inte!"
     end
 end
+
+post('/login') do
+    username = params[:username]
+    password = params[:password]
+    db = SQLite3::Database.new('db/hundar.db')
+    db.results_as_hash = true
+    result = db.execute("SELECT * FROM users WHERE username = ?",username).first
+    pwdigest = result["pwdigest"]
+    id = result["id"]
+    
+    if BCrypt::Password.new(pwdigest) == password
+        redirect('/submit')
+    else
+        "FEL LÖSEN!"
+    end
+end
+
