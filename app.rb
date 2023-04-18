@@ -29,8 +29,8 @@ post('/users/new') do
     if (password == password_confirm)
         #lägg till användare
         password_digest = BCrypt::Password.create(password)
-        db = SQLite3::Database.new{'db/dogs.db'}
-        db.execute("INSERT INTO users (username,pwdigest) VALUES {?,?}", username,password_digest)
+        db = SQLite3::Database.new('db/Dogs.db')
+        db.execute("INSERT INTO users (username,pwdigest) VALUES (?,?)", username,password_digest)
         redirect('/')
 
     else
