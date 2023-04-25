@@ -1,0 +1,6 @@
+h1 Alla hundar 
+
+ol 
+    - @result.each do |hund|
+        li 
+            a href="Hundar/#{hund['ID']}" #{hund["name"]}

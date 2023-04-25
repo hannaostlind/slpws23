@@ -21,10 +21,6 @@ get('/submit') do
     slim(:submit)
 end
 
-get('/overview') do
-    slim(:overview)
-end
-
 post('/users/new') do
     username = params[:username]
     password = params[:password]
@@ -59,3 +55,19 @@ post('/login') do
     end
 end
 
+get('/overview') do
+    db = SQLite3::Database.new("db/hundar.db")
+    db.results_as_hash = true
+    @result = db.execute("SELECT * FROM Hundar")
+    p @result
+    slim(:"overview/index")
+end
+
+  
+get('/overview/:id') do
+    id = params[:id].to_i
+    db = SQLite3::Database.new("db/hundar.db")
+    db.results_as_hash = true
+    result = db.execute("SELECT * FROM hundar WHERE ID = ?",ID).first
+    slim(:"overview/show",locals:{result:result})
+end
