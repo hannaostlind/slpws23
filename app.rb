@@ -64,10 +64,10 @@ get('/overview') do
 end
 
   
-get('/overview/:id') do
+get('/Hundar/:id') do
     id = params[:id].to_i
     db = SQLite3::Database.new("db/hundar.db")
     db.results_as_hash = true
-    result = db.execute("SELECT * FROM hundar WHERE ID = ?",ID).first
-    slim(:"overview/show",locals:{result:result})
+    @result = db.execute("SELECT * FROM hundar WHERE ID = ?",ID).first
+    slim(:"overview/show")
 end
